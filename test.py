@@ -15,12 +15,13 @@ class TestHackModule(unittest.TestCase):
             self.assertEqual(power, hack_power.hack_calculator(hack))
 
     def test_return_zero_power_for_invalid_hacks(self):
-        invalid_hacks= ['baad', 'ba a', 'baaba*b$', 'cbac12b']
+        invalid_hacks = ['baad', 'ba a', 'baaba*b$', 'cbac12b']
         for hack in invalid_hacks:
             self.assertEqual(0, hack_power.hack_calculator(hack))
 
     def test_return_zero_power_for_empty_hack(self):
         self.assertEqual(0, hack_power.hack_calculator(""))
+
 
 if __name__ == '__main__':
     unittest.main()
