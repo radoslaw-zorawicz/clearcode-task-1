@@ -1,4 +1,5 @@
 import math
+import re
 
 def count_hack_letters(hack, letters_counter):
     for char in hack:
@@ -6,17 +7,19 @@ def count_hack_letters(hack, letters_counter):
             raise ValueError("The hack contains illegal char")
         letters_counter[char] += 1
 
-def calculate_sum(base, exp):
-    if base is 1:
-        return base * exp
-    sum = (math.pow(base, exp + 1) - 1) / (base - 1) - 1
-    return sum
+def calculate_power_multiplier(count):
+    return (((1 + count) * count) / 2)
+
+def calculate_power_of_hack_phrases(hack):
+    valid_hack_phrases = {"ba": 10, "baa": 20}
+    found = re.findall("baa?",hack)
+    return sum(map(lambda x: valid_hack_phrases[x], found))
 
 def calculate_letters_power(letters_counter, letters_with_powers ):
     total_power = 0
     for letter, count in letters_counter.items():
         power = letters_with_powers[letter]
-        total_power += calculate_sum(power, count)
+        total_power += power * calculate_power_multiplier(count)
     return total_power
 
 def hack_calculator(hack):
@@ -27,5 +30,9 @@ def hack_calculator(hack):
     except ValueError:
         return 0
     letters_power = calculate_letters_power(letters_counter, letters_with_powers)
+    print(letters_power)
+    phrases_power = calculate_power_of_hack_phrases(hack)
+    total_power = letters_power + phrases_power
+    return total_power
 
     
